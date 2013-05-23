@@ -261,6 +261,7 @@ module Warden
         user = @users.delete(scope)
         manager._run_callbacks(:before_logout, user, self, :scope => scope)
 
+        return if raw_session.nil?
         raw_session.delete("warden.user.#{scope}.session")
         session_serializer.delete(scope, user)
       end
